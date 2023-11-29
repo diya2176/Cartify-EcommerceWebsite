@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block metadescription %}
+{% if category %}
+{{ category.description|truncatewords:155 }}
+{% else %}
+Get Started with Shopping Your Favorites - Cartify
+{% endif %}
+{% endblock %}
+
+{% block title %}
+{% if category %}
+{{ category.name }} - Cartify
+{% else %}
+Welcome to Cartify! Discover a world of quality products.
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+ <div class="category-banner">
+   {% if category %}
+   <img src="{{ category.image.url }}" alt="{{ category.name }}" class="img-fluid">
+   {% else %}
+   <img src="{% static 'img/banner.jpg' %}" alt="Our Products" class="img-fluid">
+   {% endif %}
+ </div>
+
+ <div class="content-below-banner text-center mt-4">
+   {% if category %}
+   <h1 class="display-4 text-dark font-weight-bold">{{ category.name }}</h1>
+   <p class="lead text-muted">{{ category.description }}</p>
+   {% else %}
+   <h1 class="display-4 text-dark font-weight-bold">Our Product Collections</h1>
+   <p class="lead text-muted" style="font-family: 'Roboto', sans-serif; font-size: 18px; line-height: 1.6;">
+     Discover quality and style! Elevate your lifestyle with our curated collection of premium products. From the latest trends to timeless classics, find the perfect items that match your taste and exceed your expectations.
+   </p>
+   {% endif %}
+ </div>
+
+ <div class="product-grid row justify-content-center mt-4 product-grid-class">
+   {% for product in products|slice:":4" %}
+   <div class="col-md-3 mb-3">
+       <div class="card border-0" style="height: 370px;"> <!-- Adjust the height value as needed -->
+           <a href="{{ product.get_url }}"><img src="{{ product.image.url }}" alt="{{ product.name }}"
+                                  class="card-img-top" style="width: 100%; height: auto; object-fit: cover;"></a>
+           <div class="card-body p-2 text-center">
+             <h6 class="card-title" style="font-size: 20px; margin-bottom: 10px; color: #333;">{{ product.name }}</h6>
+<!--             <p class="card-text mb-0">&#8377;{{ product.price }}</p>-->
+           </div>
+       </div>
+   </div>
+   {% endfor %}
+ </div>
+
+ <div class="mx-auto mt-4 pagination-div">
+   {% if products.has_other_pages %}
+   <nav aria-label="Page navigation">
+       <ul class="pagination justify-content-center pagination-class">
+           {% for pg in products.paginator.page_range %}
+           <li class="page-item {% if products.number == pg %} active {% endif %}">
+             <a class="page-link" href="?page={{ pg }}">{{ pg }}</a>
+           </li>
+           {% endfor %}
+       </ul>
+   </nav>
+   {% endif %}
+ </div>
+</div>
+
+<style>
+body {
+    background-color: #f8f9fa; /* Light Gray Background Color */
+}
+
+.category-banner {
+  text-align: center; /* Center align the banner */
+}
+
+.card {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 0; /* Set border-radius to 0 for sharp edges */
+  border: 1px solid #eee;
+}
+
+.card:hover {
+  transform: scale(1.05); /* Adjust the scale factor for the pop-out effect */
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); /* Adjust the shadow properties */
+}
+
+.card-img-top {
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.card-title {
+  font-size: 20px;
+  letter-spacing: 1px;
+  margin-top: 20px; /* Add space above the product name */
+  font-family: 'Arial'; /* Change 'Your Desired Font' to the desired font family */
+  color: #333; /* Text color */
+  font-weight: bold;
+}
+
+.content-below-banner h1 {
+  margin-bottom: 20px; /* Add space below the heading */
+}
+
+.content-below-banner p {
+  font-family: 'Roboto', sans-serif; /* Change 'Roboto' to your desired font family */
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.col-md-3 {
+  max-width: 300px;
+  margin: 10px;
+}
+
+.pagination-div {
+  margin-top: 20px;
+}
+
+.product-grid-class {
+  margin-bottom: 30px;
+}
+
+.pagination-class {
+  margin-top: 30px;
+}
+</style>
+
+{% endblock %}

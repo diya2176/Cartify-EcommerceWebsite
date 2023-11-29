@@ -1,0 +1,43 @@
+    .bg-purple {
+        background-color: purple !important; /* Add !important to ensure it overrides other styles */
+    }
+
+    .btn-purple {
+        background-color: #800080 !important;
+        color: white; /* Set text color to white or another contrasting color */
+    }
+    .product-card {
+        margin-bottom: 30px;
+        padding: 30px;
+        border: 1px solid #ddd;
+        border-radius: 15px;
+        font-size: 16px; /* Adjust the font size as needed */
+    }
+
+    .product-image {
+        width: 150px; /* Adjust the width as needed */
+        height: auto;
+        margin-right: 15px;
+    }
+
+    .product-details {
+        font-size: 18px; /* Adjust the font size as needed */
+    }
+
+    .quantity-btn {
+        font-size: 18px; /* Adjust the font size as needed */
+    }
+
+    .total-price {
+        font-size: 18px; /* Adjust the font size as needed */
+    }
+
+    .shopping-cart-heading {
+        font-size: 24px; /* Adjust the font size as needed */
+        font-weight: bold;
+    }
+
+    .summary-heading {
+        font-size: 24px; /* Adjust the font size as needed */
+        font-weight: bold;
+    }

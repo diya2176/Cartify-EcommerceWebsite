@@ -1,0 +1,153 @@
+{% load static %}
+
+<!-- Include Bootstrap CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wy6pB6L9ZqndF2pLv0L9aP1F83MqfKJ2Im" crossorigin="anonymous">
+
+<!-- Font Awesome CSS for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha384-3CJiRNjI/FF+9F6iKpspLGT/LC8GGZ+80yZ/rXMFOtPDTiPxum+xv8hlvKAUBQ5">
+
+<!-- Custom Styles -->
+<style>
+  .navbar {
+    background-color: #FFFFFF; /* Change background color to white */
+    color: purple;
+    min-height: 80px;
+  }
+
+  .navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .navbar-nav {
+    margin-left: 5%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .navbar-nav .nav-item {
+    margin-right: 10px;
+  }
+
+  .navbar-nav .nav-link,
+  .dropdown-toggle {
+    color: purple;
+    font-size: 18px;
+    padding: 15px 10px;
+  }
+
+  .navbar-nav .nav-link:hover {
+    font-weight: bold;
+  }
+
+  .search-bar {
+    margin-right: 5%;
+    width: 60%;
+    height: 30%;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .search-bar input:focus {
+    outline-color: purple;
+  }
+
+  .search-bar input:focus::placeholder {
+    color: transparent;
+  }
+
+  .search-bar button {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    outline: none;
+  }
+
+  .search-bar button:focus {
+    outline: none;
+  }
+
+  .navbar-nav .nav-link {
+    white-space: nowrap;
+  }
+
+  .search-icon {
+    font-size: 22px;
+    margin-right: 5px;
+    align-self: center;
+  }
+
+  .btn-outline-secondary {
+    background: none;
+    border: none;
+  }
+
+  .fa-search {
+    color: purple;
+  }
+
+  .dropdown-menu .active {
+    font-weight: bold;
+  }
+
+</style>
+
+<!-- Navbar with Custom Style -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'img/logon.png' %}" width="180" height="110" class="d-inline-block align-top" alt="">
+        </a>
+        <div class="navbar-nav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-uppercase me-3" href="{% url 'shop:allProdCat' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-uppercase me-3" href="{% url 'shop:allProdCat' %}">All Products</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <button class="btn dropdown-toggle text-uppercase" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown">
+                        Categories
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {% for cat in links %}
+                        <a class="dropdown-item" href="{{cat.get_url}}">{{cat.name}}</a>
+                        {% endfor %}
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Search Bar and Cart on the Right -->
+        <div class="d-flex ms-auto">
+            <form class="d-flex search-bar" action="{% url 'search_app:SearchResult' %}" method="get">
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" placeholder="Search" name='q' aria-label="Search">
+                <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search search-icon"></i>
+                </button>
+            </form>
+
+            <div class="navbar-nav ms-auto">
+                <ul class="navbar-nav">
+                    {% if item_count > 0 %}
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase me-3" href="{% url 'cart:cart_detail' %}"><i
+                                class="fa-solid fa-cart-shopping"></i>Cart({{item_count}})</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Include Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -1,0 +1,55 @@
+/* Reset default margin and padding for all elements */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #fff; /* Set the background color to white */
+}
+
+/* Main content styles */
+.main-content {
+    background-color: #fff; /* Set the background color of the main content area to white */
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.product-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto; /* Center the image */
+}
+
+.product-details {
+    padding: 20px;
+}
+
+.product-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.product-price {
+    font-size: 18px;
+    color: #e44d26; /* Example color for price */
+}
+
+.product-description {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.product-actions {
+    margin-top: 20px;
+}
+
+.out-of-stock {
+    color: #d9534f; /* Example color for out-of-stock */
+}
+

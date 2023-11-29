@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block metadescription %}
+  {{ product.description|truncatewords:155 }}
+{% endblock %}
+
+{% block title %}
+  {% if category %}
+      {{ product.name }} - Cartify
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="product-card">
+      <div class="row">
+          <div class="col-lg-6">
+              <div class="product-image">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid reduced-image">
+              </div>
+          </div>
+          <div class="col-lg-6 d-flex align-items-center">
+              <div class="product-details">
+                <h1 class="product-title display-4 font-weight-bold mb-3">{{ product.name }}</h1>
+                <p class="product-price lead text-success font-weight-bold">&#8377;{{ product.price }}</p>
+                <p class="product-description">{{ product.description }}</p>
+
+                <div class="product-actions mt-3">
+                    {% if product.stock <= 0 %}
+                        <p class="out-of-stock lead"><b>Out of Stock</b></p>
+                    {% else %}
+                        <a class="btn btn-success btn-md add-to-cart-btn" href="{% url 'cart:add_cart' product.id %}">Add to Cart</a>
+                    {% endif %}
+                </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="row mt-4">
+          <div class="col-lg-12">
+              <div class="breadcrumbs">
+                <p class="lead">
+                    <a href="{% url 'shop:allProdCat' %}" class="text-muted">Home</a> &raquo;
+                    <a href="{{ product.category.get_url }}" class="text-muted">{{ product.category }}</a> &raquo;
+                    <span>{{ product.name }}</span>
+                </p>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<style>
+body {
+    background-color: #f8f9fa; /* Light Gray Background Color */
+}
+  .product-image {
+      text-align: center;
+  }
+
+  .reduced-image {
+      max-width: 100%;
+      height: auto;
+      max-height: 400px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .product-card {
+      padding: 40px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      margin-top: 30px;
+  }
+
+  .product-details {
+      padding: 30px;
+  }
+
+  .product-title {
+      font-family: 'Amazon Ember', 'Arial', sans-serif;
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #333;
+  }
+
+  .product-price {
+      font-size: 1.5rem;
+      font-weight: bold;
+  }
+
+  .product-description {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #555;
+  }
+
+  .out-of-stock {
+      color: #dc3545;
+  }
+
+  .btn-success {
+      background-color: #800080;
+      border-color: #800080;
+      font-size: 1.2rem;
+      font-weight: normal;
+  }
+
+  .breadcrumbs {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 30px;
+    margin-bottom: 2px;
+  }
+</style>
+
+{% endblock %}
